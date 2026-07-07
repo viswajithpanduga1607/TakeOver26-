@@ -1,0 +1,468 @@
+{
+  "name": "Take Over  26",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "takeover26",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -816,
+        160
+      ],
+      "id": "e1f1d634-7c55-4511-be2d-c004ce5f6d48",
+      "name": "Webhook",
+      "webhookId": "ff208e4d-5a91-4c6e-a4e6-4327a3bc62a5",
+      "alwaysOutputData": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "sendTo": "viswajithpanduga1607@gmail.com",
+        "subject": "=Request Auto-Approved — {{ $('Append row in sheet').item.json.Name }}",
+        "emailType": "text",
+        "message": "={{ $('Append row in sheet').item.json.Name }}'s {{ $('Append row in sheet').item.json.RequestType }} request has been auto-approved by the AI agent. Reason: {{ $('Append row in sheet').item.json['Reason '] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        272,
+        112
+      ],
+      "id": "0a5c4b50-72c3-41f0-b4aa-d31b621d884b",
+      "name": "Send a message",
+      "webhookId": "02bb0f96-5193-4e02-9951-f2370378eeeb",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "U4G2WIWjALO9BURl",
+          "name": "Gmail account 3137"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an approval agent for employee requests. You will receive a request with employee name, request type, description, and optional context. Evaluate it and respond with ONLY a valid JSON object in this exact format, no extra text, no markdown, no explanation outside the JSON:\n\n{\n  \"employeeName\": \"{{ $json.body.employeeName }}\",\n  \"requestType\": \"{{ $json.body.requestType }}\",\n  \"description\": \"{{ $json.body.description }}\",\n  \"decision\": \"AUTO_APPROVE or NEEDS_REVIEW or REJECT\",\n  \"reason\": \"one line reason for the decision\",\n  \"timestamp\": \"{{ $now }}\"\n}\n\nRules for decision:\n- If requestType is \"leave\" and description does NOT indicate an emergency, decision = REJECT\n- If requestType is \"leave\" and description DOES indicate an emergency or urgent situation, decision = NEEDS_REVIEW\n- For \"expense\" requests, AUTO_APPROVE if amount/context seems reasonable and clearly justified, otherwise NEEDS_REVIEW\n- For \"complaint\" requests, always NEEDS_REVIEW\n- If context field mentions anything unusual, factor it into your decision\n\nNow evaluate this request:\nEmployee: {{ $json.body.employeeName }}\nRequest Type: {{ $json.body.requestType }}\nDescription: {{ $json.body.description }}\nContext: {{ $json.body.context }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -608,
+        160
+      ],
+      "id": "053480c1-f6a8-4d73-bd4f-d37ec53aaddf",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -672,
+        320
+      ],
+      "id": "d0ec0538-16e3-40bc-a74d-69deb5a0a41f",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "n6MuiyylKz8ynZzG",
+          "name": "Google Gemini(PaLM) Api account 11429"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1RiJV51MX3IHL7jpxgjoB1Bzny_3gdD4Ol286ZIM_zDI",
+          "mode": "list",
+          "cachedResultName": "NOTHING 3",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RiJV51MX3IHL7jpxgjoB1Bzny_3gdD4Ol286ZIM_zDI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RiJV51MX3IHL7jpxgjoB1Bzny_3gdD4Ol286ZIM_zDI/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ JSON.parse($json.output).employeeName }}",
+            "RequestType": "={{ JSON.parse($json.output).requestType }}",
+            "Description": "={{ JSON.parse($json.output).description }}",
+            "Decision ": "={{ JSON.parse($json.output).decision }}",
+            "Reason ": "={{ JSON.parse($json.output).reason }}",
+            "Timestamp": "={{ JSON.parse($json.output).timestamp }}"
+          },
+          "matchingColumns": [
+            "Name"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "RequestType",
+              "displayName": "RequestType",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Decision ",
+              "displayName": "Decision ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Reason ",
+              "displayName": "Reason ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "output",
+              "displayName": "output",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -224,
+        160
+      ],
+      "id": "6d60ec6d-46d9-424f-8674-f107ca49bdd1",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "BzLzb69ldAprGwwG",
+          "name": "Google Sheets account 1034"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json['Decision '] }}",
+                    "rightValue": "AUTO_APPROVE",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "f52f3b2e-43ac-4d5c-9e65-c643586b002b"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "91f7050d-b5ea-4d6b-aeda-446c53700eb4",
+                    "leftValue": "={{ $json['Decision '] }}",
+                    "rightValue": "NEEDS_REVIEW",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "d41c52df-9d16-463d-8b67-ff2b035ea712",
+                    "leftValue": "={{ $json['Decision '] }}",
+                    "rightValue": " REJECT",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -16,
+        176
+      ],
+      "id": "d2a6ff05-2324-4583-bca9-71047692454a",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "sendTo": "viswajithpanduga1607@gmail.com",
+        "subject": "=Request Needs Your Review — {{ $('Append row in sheet').item.json.Name }}",
+        "emailType": "text",
+        "message": "={{ $('Append row in sheet').item.json.Name }}'s {{ $('Append row in sheet').item.json.RequestType }} request needs your review. AI's Assessment: {{ $('Append row in sheet').item.json['Reason '] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        272
+      ],
+      "id": "f1d33fdc-f3e4-4f0d-a049-15ccc3793860",
+      "name": "Send a message1",
+      "webhookId": "02bb0f96-5193-4e02-9951-f2370378eeeb",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "U4G2WIWjALO9BURl",
+          "name": "Gmail account 3137"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "viswajithpanduga1607@gmail.com",
+        "subject": "=Request Rejected — {{ $('Append row in sheet').item.json.Name }}",
+        "emailType": "text",
+        "message": "={{ $('Append row in sheet').item.json.Name }}'s {{ $('Append row in sheet').item.json.RequestType }} request has been rejected by the AI agent. Reason:{{ $('Append row in sheet').item.json['Reason '] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        448
+      ],
+      "id": "01c33d88-065c-4235-af45-4e620c62ad7f",
+      "name": "Send a message2",
+      "webhookId": "02bb0f96-5193-4e02-9951-f2370378eeeb",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "U4G2WIWjALO9BURl",
+          "name": "Gmail account 3137"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"decision\": \"{{ $('Edit Fields').item.json.decision }}\",\n  \"reason\": \"{{ $('Edit Fields').item.json.reason }}\",\n  \"message\": \"Your request has been processed and an email has been sent to your manager.\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        624,
+        288
+      ],
+      "id": "97663f14-6758-4fcf-95e6-06f8169d44dd",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message2": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "71bdce94-6a5c-4906-90cb-7cc6da447888",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "969257b09ad2942bbaff2e2288304f4969030574d109cdeca05bf11f630884df"
+  },
+  "id": "3eGf4rxgOuk6F9eF",
+  "tags": []
+}
