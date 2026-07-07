@@ -20,8 +20,8 @@ The request details and the AI's decision were successfully logged into the Goog
 The spreadsheet captures: `Name`, `RequestType`, `Description`, `Decision`, `Reason`, and `Timestamp`. 
 For this execution, it correctly logged the `NEEDS_REVIEW` decision along with the AI's reason: *"Incomplete request: request type and description are missing."*
 
-**Database Link (Proof):** [Verdikt AI Database - Google Sheets](https://docs.google.com/spreadsheets/d/1RiJV51MX3IHL7jpxgjoB1Bzny_3gdD4Ol286ZIM_zDI/edit?usp=sharing)
-
+**Database Link (Proof):** [Verdikt AI Database - Google Sheets]
+**[https://docs.google.com/spreadsheets/d/1RiJV51MX3IHL7jpxgjoB1Bzny_3gdD4Ol286ZIM_zDI/edit?usp=sharing]**
 ![Google Sheets Database Log](assets/sheets_log.png)
 
 ## 3. Manager Email Notification
@@ -31,3 +31,7 @@ The final step of the workflow successfully sent an automated email to the manag
 ![Manager Email Notification](assets/email_notification.png)
 
 This confirms the end-to-end pipeline is fully operational: **Frontend → n8n Webhook → Gemini AI → Google Sheets → Gmail → Frontend Response.**
+
+---
+
+*(Note: If the above execution proof images are not displaying properly, please check this Google Drive link for all raw screenshots and proof of work: **[https://drive.google.com/drive/folders/1xT5mXyqgLY04RpU1d2ni52iT6gsryyhw?usp=sharing]**)*
