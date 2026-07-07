@@ -241,11 +241,9 @@ The following was verified in a browser test:
 
 ---
 
-## Remaining Steps
+## Deployment Status
 
-1. **Get webhook URL** — The n8n Production Webhook URL needs to be set in `script.js` (line 5, `CONFIG.WEBHOOK_URL`)
-2. **Deploy to Vercel** — Push repo to GitHub, connect to Vercel, deploy as static site
-3. **Update README.md** — Mark frontend and deployment as complete, add live URL
+The application is fully configured and connected to the production n8n webhook. It is ready for Vercel deployment.
 
 ---
 

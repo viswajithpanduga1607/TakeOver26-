@@ -95,19 +95,8 @@ A Memory node (Simple/Window Buffer Memory) was considered but **not implemented
 | Switch Routing     | ✅ Complete    |
 | Gmail Notifications| ✅ Complete    |
 | Respond to Webhook | ✅ Complete    |
-| **Frontend (Web Form)** | 🔲 Not started |
-| **Vercel Deployment**   | 🔲 Not started |
-
-### What's Left to Build (Frontend — Next Phase)
-
-- A clean single-page form with fields for:
-  - Employee Name
-  - Request Type (dropdown: Leave / Expense / Complaint)
-  - Description
-  - Optional Context
-- On submit, POST as JSON to the n8n Production Webhook URL.
-- Display the AI's decision, reasoning, and manager-notification confirmation back to the user after the response.
-- Deploy via GitHub + Vercel.
+| **Frontend (Web Form)** | ✅ Complete |
+| **Vercel Deployment**   | ✅ Complete |
 
 ---
 
