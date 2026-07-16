@@ -404,6 +404,43 @@ function initRoadmapCards() {
   });
 }
 
+// ── Role Selection Toggle ──
+function initRoleSelection() {
+  const btnEmployee = document.getElementById('btn-role-employee');
+  const btnManager = document.getElementById('btn-role-manager');
+  const viewEmployee = document.getElementById('employee-view');
+  const viewManager = document.getElementById('manager-view');
+
+  if (!btnEmployee || !btnManager || !viewEmployee || !viewManager) return;
+
+  btnEmployee.addEventListener('click', () => {
+    btnEmployee.classList.add('active');
+    btnManager.classList.remove('active');
+    viewEmployee.style.display = 'block';
+    viewManager.style.display = 'none';
+    
+    setTimeout(() => {
+      viewEmployee.classList.add('visible');
+      viewManager.classList.remove('visible');
+    }, 10);
+  });
+
+  btnManager.addEventListener('click', () => {
+    btnManager.classList.add('active');
+    btnEmployee.classList.remove('active');
+    viewManager.style.display = 'block';
+    viewEmployee.style.display = 'none';
+    
+    setTimeout(() => {
+      viewManager.classList.add('visible');
+      viewEmployee.classList.remove('visible');
+    }, 10);
+  });
+
+  // Default State
+  btnEmployee.click();
+}
+
 // ── Smooth Scroll for CTA ──
 function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
@@ -437,6 +474,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Roadmap expandable cards
   initRoadmapCards();
+
+  // Role Selection Toggle
+  initRoleSelection();
 
   // Smooth scrolling
   initSmoothScroll();

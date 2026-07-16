@@ -111,101 +111,126 @@
         Fill in the details below and let our AI agent make an autonomous decision in real time.
       </p>
 
-      <div class="form-wrapper fade-up stagger-3">
-        <div class="form-card">
-          <form id="request-form" novalidate>
-            <div class="form-grid">
-              <!-- Employee Name -->
-              <div class="form-group">
-                <label for="employeeName" class="form-label">
-                  Employee Name <span class="required">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="employeeName"
-                  name="employeeName"
-                  class="form-input"
-                  placeholder="Enter your full name"
-                  required
-                  autocomplete="name"
-                >
+      <!-- 1. Role Selection Container -->
+      <div class="role-selection fade-up stagger-3" id="role-selection">
+        <button id="btn-role-employee" class="role-btn active">
+          <span class="role-icon">👤</span>
+          <span class="role-text">I am an Employee</span>
+        </button>
+        <button id="btn-role-manager" class="role-btn">
+          <span class="role-icon">💼</span>
+          <span class="role-text">I am a Manager</span>
+        </button>
+      </div>
+
+      <!-- 2. Employee View Container -->
+      <div id="employee-view" style="display: none; margin-top: 2rem;">
+        <div class="form-wrapper fade-up stagger-3">
+          <div class="form-card">
+            <form id="request-form" novalidate>
+              <div class="form-grid">
+                <!-- Employee Name -->
+                <div class="form-group">
+                  <label for="employeeName" class="form-label">
+                    Employee Name <span class="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="employeeName"
+                    name="employeeName"
+                    class="form-input"
+                    placeholder="Enter your full name"
+                    required
+                    autocomplete="name"
+                  >
+                </div>
+
+                <!-- Request Type -->
+                <div class="form-group">
+                  <label for="requestType" class="form-label">
+                    Request Type <span class="required">*</span>
+                  </label>
+                  <select id="requestType" name="requestType" class="form-select" required>
+                    <option value="" disabled selected>Select type</option>
+                    <option value="Leave">Leave</option>
+                    <option value="Expense">Expense</option>
+                    <option value="Complaint">Complaint</option>
+                  </select>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group full-width">
+                  <label for="description" class="form-label">
+                    Description <span class="required">*</span>
+                  </label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    class="form-textarea"
+                    placeholder="Describe your request clearly — what, why, and any relevant details"
+                    rows="4"
+                    required
+                  ></textarea>
+                </div>
+
+                <!-- Context (optional) -->
+                <div class="form-group full-width">
+                  <label for="context" class="form-label">
+                    Additional Context
+                  </label>
+                  <textarea
+                    id="context"
+                    name="context"
+                    class="form-textarea"
+                    placeholder="Any supporting info — dates, amounts, prior approvals, etc. (optional)"
+                    rows="3"
+                  ></textarea>
+                  <p class="form-hint">Optional — helps the AI make a more informed decision.</p>
+                </div>
               </div>
 
-              <!-- Request Type -->
-              <div class="form-group">
-                <label for="requestType" class="form-label">
-                  Request Type <span class="required">*</span>
-                </label>
-                <select id="requestType" name="requestType" class="form-select" required>
-                  <option value="" disabled selected>Select type</option>
-                  <option value="Leave">Leave</option>
-                  <option value="Expense">Expense</option>
-                  <option value="Complaint">Complaint</option>
-                </select>
-              </div>
+              <button type="submit" class="btn-submit" id="submit-btn">
+                <span class="btn-text">Submit Request</span>
+                <span class="btn-loading">
+                  Processing
+                  <span class="loading-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </span>
+                </span>
+              </button>
+            </form>
+          </div>
+        </div>
 
-              <!-- Description -->
-              <div class="form-group full-width">
-                <label for="description" class="form-label">
-                  Description <span class="required">*</span>
-                </label>
-                <textarea
-                  id="description"
-                  name="description"
-                  class="form-textarea"
-                  placeholder="Describe your request clearly — what, why, and any relevant details"
-                  rows="4"
-                  required
-                ></textarea>
-              </div>
-
-              <!-- Context (optional) -->
-              <div class="form-group full-width">
-                <label for="context" class="form-label">
-                  Additional Context
-                </label>
-                <textarea
-                  id="context"
-                  name="context"
-                  class="form-textarea"
-                  placeholder="Any supporting info — dates, amounts, prior approvals, etc. (optional)"
-                  rows="3"
-                ></textarea>
-                <p class="form-hint">Optional — helps the AI make a more informed decision.</p>
+        <!-- Result Display -->
+        <div class="result-container" id="result-container">
+          <div class="result-card" id="result-card">
+            <div class="result-header">
+              <div class="result-icon" id="result-icon"></div>
+              <div>
+                <p class="result-decision-label">AI Decision</p>
+                <p class="result-decision" id="result-decision"></p>
               </div>
             </div>
-
-            <button type="submit" class="btn-submit" id="submit-btn">
-              <span class="btn-text">Submit Request</span>
-              <span class="btn-loading">
-                Processing
-                <span class="loading-dots">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </span>
-              </span>
-            </button>
-          </form>
+            <div class="result-body">
+              <p class="result-reason" id="result-reason"></p>
+              <div class="result-confirmation" id="result-confirmation">
+                <span class="check-icon">✓</span>
+                <span id="result-message"></span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Result Display -->
-      <div class="result-container" id="result-container">
-        <div class="result-card" id="result-card">
-          <div class="result-header">
-            <div class="result-icon" id="result-icon"></div>
-            <div>
-              <p class="result-decision-label">AI Decision</p>
-              <p class="result-decision" id="result-decision"></p>
-            </div>
-          </div>
-          <div class="result-body">
-            <p class="result-reason" id="result-reason"></p>
-            <div class="result-confirmation" id="result-confirmation">
-              <span class="check-icon">✓</span>
-              <span id="result-message"></span>
-            </div>
+      <!-- 3. Manager View Container -->
+      <div id="manager-view" style="display: none; margin-top: 2rem;">
+        <div class="form-wrapper fade-up stagger-3">
+          <div class="form-card">
+            <h3 style="color: var(--text-primary); font-size: 1.5rem; margin-bottom: 0.5rem;">Manager Dashboard</h3>
+            <p style="color: var(--text-secondary);">Fetching live department requests...</p>
           </div>
         </div>
       </div>
