@@ -211,10 +211,11 @@ function initForm() {
     // Validate required fields
     const employeeName = document.getElementById('employeeName').value.trim();
     const requestType = document.getElementById('requestType').value;
+    const department = document.getElementById('department').value;
     const description = document.getElementById('description').value.trim();
     const context = document.getElementById('context').value.trim();
 
-    if (!employeeName || !requestType || !description) {
+    if (!employeeName || !requestType || !department || !description) {
       showError('Please fill in all required fields before submitting.');
       return;
     }
@@ -251,6 +252,7 @@ function initForm() {
         body: JSON.stringify({
           employeeName,
           requestType,
+          department,
           description,
           context: context || '',
         }),
