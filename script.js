@@ -457,6 +457,80 @@ function initSmoothScroll() {
   });
 }
 
+// ── Toast Notification System ──
+function showToast(message, type = 'success') {
+  const toast = document.createElement('div');
+  toast.className = `toast-notification toast--${type}`;
+  toast.innerHTML = `${type === 'success' ? '✅' : '❌'} ${message}`;
+  document.body.appendChild(toast);
+
+  // Begin exit animation after 2.5s, remove after animation completes
+  setTimeout(() => {
+    toast.classList.add('toast-exit');
+    toast.addEventListener('animationend', () => toast.remove());
+  }, 2500);
+}
+
+// ── Manager Dashboard Logic ──
+function initDashboard() {
+  // --- Stat Counter Animation ---
+  const statCounter = document.querySelector('.dash-stat-count');
+  if (statCounter) {
+    let count = parseInt(statCounter.textContent, 10) || 142;
+    setInterval(() => {
+      count++;
+      statCounter.textContent = count;
+    }, 7000); // Tick every 7 seconds
+  }
+
+  // --- Filter Logic ---
+  const filterSelect = document.getElementById('dash-filter-status');
+  const feed = document.getElementById('request-feed');
+
+  if (filterSelect && feed) {
+    filterSelect.addEventListener('change', () => {
+      const selected = filterSelect.value;
+      const cards = feed.querySelectorAll('.dash-card');
+
+      cards.forEach((card) => {
+        const cardStatus = card.getAttribute('data-status');
+        if (selected === 'all' || cardStatus === selected) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  }
+
+  // --- Override Button Logic ---
+  const overrideBtns = document.querySelectorAll('.btn-override');
+  overrideBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.dash-card');
+      if (!card) return;
+
+      // Update the badge to show human override
+      const badge = card.querySelector('.dash-badge');
+      if (badge) {
+        badge.className = 'dash-badge dash-badge--success';
+        badge.textContent = 'Manager Override';
+      }
+
+      // Update the card's data-status so filters still work
+      card.setAttribute('data-status', 'AUTO_APPROVE');
+
+      // Disable the button after override
+      btn.textContent = 'Overridden ✓';
+      btn.disabled = true;
+      btn.style.opacity = '0.5';
+      btn.style.cursor = 'default';
+
+      showToast('AI Decision overridden successfully.', 'success');
+    });
+  });
+}
+
 // ── Initialize Everything on DOM Ready ──
 document.addEventListener('DOMContentLoaded', () => {
   // Particle background
@@ -482,6 +556,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Smooth scrolling
   initSmoothScroll();
+
+  // Manager Dashboard
+  initDashboard();
 
   // Trigger hero animations immediately
   setTimeout(() => {

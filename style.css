@@ -1315,3 +1315,286 @@ input, textarea, select { font-family: inherit; }
     font-size: 1.5rem;
   }
 }
+
+/* ============================================
+   Manager Dashboard (Phase 4)
+   ============================================ */
+
+/* Dashboard Header */
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 16px;
+}
+
+.dash-title {
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.dash-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+}
+
+.dash-stat-icon {
+  font-size: 1.25rem;
+}
+
+.dash-stat-count {
+  color: var(--accent-light);
+  font-weight: 700;
+}
+
+/* Filter Row */
+.dash-filters {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.dash-filter-select {
+  max-width: 220px;
+}
+
+/* Request Feed Grid */
+.dash-feed {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Dashboard Card */
+.dash-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dash-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--glass-hover-border);
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.08);
+}
+
+/* Card Header */
+.dash-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.dash-card-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.dash-card-name {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 1.0625rem;
+}
+
+.dash-card-dept {
+  color: var(--accent-secondary-light);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Status Badges */
+.dash-badge {
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.dash-badge--success {
+  background: var(--success-bg);
+  color: var(--success);
+  border: 1px solid var(--success-border);
+}
+
+.dash-badge--warning {
+  background: var(--warning-bg);
+  color: var(--warning);
+  border: 1px solid var(--warning-border);
+}
+
+.dash-badge--danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid var(--danger-border);
+}
+
+/* Card Body */
+.dash-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dash-card-type,
+.dash-card-reason {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.dash-card-label {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Card Actions */
+.dash-card-actions {
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+.btn-override {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent-light);
+  padding: 0.5rem 1.25rem;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  width: 100%;
+}
+
+.btn-override:hover {
+  background: rgba(124, 58, 237, 0.12);
+  border-color: var(--accent-light);
+  box-shadow: 0 0 16px rgba(124, 58, 237, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Dashboard Responsive */
+@media (max-width: 768px) {
+  .dash-header {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .dash-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dash-filter-select {
+    max-width: 100%;
+  }
+
+  .dash-feed {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   Toast Notifications (Phase 4, Part 2)
+   ============================================ */
+
+.toast-notification {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 1rem 1.5rem;
+  background: rgba(17, 24, 39, 0.92);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  z-index: 9999;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  animation: toastSlideIn 0.4s var(--ease-out-expo) forwards;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  max-width: 380px;
+}
+
+.toast-notification.toast--success {
+  border-color: var(--success-border);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--success-glow);
+}
+
+.toast-notification.toast--error {
+  border-color: var(--danger-border);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--danger-glow);
+}
+
+.toast-notification.toast-exit {
+  animation: toastSlideOut 0.35s ease-in forwards;
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+}
+
+@keyframes toastSlideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%) translateY(10px);
+  }
+}
+
+@media (max-width: 480px) {
+  .toast-notification {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    max-width: none;
+  }
+}

@@ -245,11 +245,84 @@
 
       <!-- 3. Manager View Container -->
       <div id="manager-view" style="display: none; margin-top: 2rem;">
-        <div class="form-wrapper fade-up stagger-3">
-          <div class="form-card">
-            <h3 style="color: var(--text-primary); font-size: 1.5rem; margin-bottom: 0.5rem;">Manager Dashboard</h3>
-            <p style="color: var(--text-secondary);">Fetching live department requests...</p>
+
+        <!-- Dashboard Header -->
+        <div class="dash-header fade-up stagger-3">
+          <h3 class="dash-title">Manager Dashboard</h3>
+          <div class="dash-stat">
+            <span class="dash-stat-icon">📊</span>
+            <span>Live Requests Processed: <strong class="dash-stat-count">142</strong></span>
           </div>
+        </div>
+
+        <!-- Filter Row -->
+        <div class="dash-filters fade-up stagger-3">
+          <label for="dash-filter-status" class="form-label" style="margin-bottom:0;">Filter by Status</label>
+          <select id="dash-filter-status" class="form-select dash-filter-select">
+            <option value="all" selected>All</option>
+            <option value="AUTO_APPROVE">Auto-Approved</option>
+            <option value="NEEDS_REVIEW">Needs Review</option>
+            <option value="REJECT">Rejected</option>
+          </select>
+        </div>
+
+        <!-- Request Feed -->
+        <div class="dash-feed" id="request-feed">
+
+          <!-- Mock Request Card -->
+          <div class="dash-card fade-up" data-status="AUTO_APPROVE">
+            <div class="dash-card-header">
+              <div class="dash-card-identity">
+                <span class="dash-card-name">Vikram Singh</span>
+                <span class="dash-card-dept">IT</span>
+              </div>
+              <span class="dash-badge dash-badge--success">Auto-Approved</span>
+            </div>
+            <div class="dash-card-body">
+              <p class="dash-card-type"><span class="dash-card-label">Request:</span> Expense</p>
+              <p class="dash-card-reason"><span class="dash-card-label">AI Reason:</span> Reasonable expense for IT department.</p>
+            </div>
+            <div class="dash-card-actions">
+              <button class="btn-override">Override AI Decision</button>
+            </div>
+          </div>
+
+          <!-- Mock Card 2 -->
+          <div class="dash-card fade-up" data-status="NEEDS_REVIEW">
+            <div class="dash-card-header">
+              <div class="dash-card-identity">
+                <span class="dash-card-name">Priya Sharma</span>
+                <span class="dash-card-dept">Finance</span>
+              </div>
+              <span class="dash-badge dash-badge--warning">Needs Review</span>
+            </div>
+            <div class="dash-card-body">
+              <p class="dash-card-type"><span class="dash-card-label">Request:</span> Leave</p>
+              <p class="dash-card-reason"><span class="dash-card-label">AI Reason:</span> Extended leave period during peak quarter close — requires manager confirmation.</p>
+            </div>
+            <div class="dash-card-actions">
+              <button class="btn-override">Override AI Decision</button>
+            </div>
+          </div>
+
+          <!-- Mock Card 3 -->
+          <div class="dash-card fade-up" data-status="REJECT">
+            <div class="dash-card-header">
+              <div class="dash-card-identity">
+                <span class="dash-card-name">Rahul Mehta</span>
+                <span class="dash-card-dept">Sales</span>
+              </div>
+              <span class="dash-badge dash-badge--danger">Rejected</span>
+            </div>
+            <div class="dash-card-body">
+              <p class="dash-card-type"><span class="dash-card-label">Request:</span> Complaint</p>
+              <p class="dash-card-reason"><span class="dash-card-label">AI Reason:</span> Insufficient detail provided. No specific incident or date referenced.</p>
+            </div>
+            <div class="dash-card-actions">
+              <button class="btn-override">Override AI Decision</button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
