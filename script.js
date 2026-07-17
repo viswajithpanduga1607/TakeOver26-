@@ -152,51 +152,66 @@ function initScrollAnimations() {
   document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
 }
 
-// ── Navigation ──
+// ── SPA Navigation & View Routing ──
+function navigateToView(viewId) {
+  const views = document.querySelectorAll('.spa-view');
+  const navLinks = document.querySelectorAll('.spa-nav');
+
+  // Hide all views
+  views.forEach((v) => (v.style.display = 'none'));
+
+  // Show target view
+  const target = document.getElementById(viewId);
+  if (target) {
+    target.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Update active nav link (only header nav links, not CTA)
+  navLinks.forEach((link) => {
+    if (link.closest('.nav-links')) {
+      link.classList.toggle('active-nav-link', link.getAttribute('data-view') === viewId);
+    }
+  });
+}
+
 function initNavigation() {
   const nav = document.getElementById('nav');
   const navToggle = document.getElementById('nav-toggle');
-  const navLinks = document.getElementById('nav-links');
-  const navAnchors = document.querySelectorAll('[data-nav]');
+  const navLinksContainer = document.getElementById('nav-links');
 
   // Scroll effect — add background on scroll
-  let lastScroll = 0;
   window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    nav.classList.toggle('scrolled', currentScroll > 50);
-    lastScroll = currentScroll;
+    nav.classList.toggle('scrolled', window.scrollY > 50);
   });
 
   // Mobile toggle
   navToggle.addEventListener('click', () => {
     navToggle.classList.toggle('active');
-    navLinks.classList.toggle('open');
+    navLinksContainer.classList.toggle('open');
   });
 
-  // Close mobile menu on link click
-  navAnchors.forEach((anchor) => {
-    anchor.addEventListener('click', () => {
+  // SPA routing for all .spa-nav links (nav + CTA buttons)
+  document.querySelectorAll('.spa-nav').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const viewId = link.getAttribute('data-view');
+      if (viewId) navigateToView(viewId);
+
+      // Close mobile menu
       navToggle.classList.remove('active');
-      navLinks.classList.remove('open');
+      navLinksContainer.classList.remove('open');
     });
   });
 
-  // Active link highlighting (scroll spy)
-  const sections = document.querySelectorAll('section[id]');
-  const spy = () => {
-    const scrollY = window.scrollY + 120;
-    sections.forEach((section) => {
-      const top = section.offsetTop;
-      const height = section.offsetHeight;
-      const id = section.getAttribute('id');
-      const link = document.querySelector(`.nav-links a[href="#${id}"]`);
-      if (link) {
-        link.classList.toggle('active', scrollY >= top && scrollY < top + height);
-      }
+  // Logo click → home
+  const logo = document.getElementById('nav-logo');
+  if (logo) {
+    logo.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigateToView('home-view');
     });
-  };
-  window.addEventListener('scroll', spy);
-  spy(); // Initial check
+  }
 }
 
 // ── Form Submission ──
@@ -406,46 +421,9 @@ function initRoadmapCards() {
   });
 }
 
-// ── Role Selection Toggle ──
-function initRoleSelection() {
-  const btnEmployee = document.getElementById('btn-role-employee');
-  const btnManager = document.getElementById('btn-role-manager');
-  const viewEmployee = document.getElementById('employee-view');
-  const viewManager = document.getElementById('manager-view');
-
-  if (!btnEmployee || !btnManager || !viewEmployee || !viewManager) return;
-
-  btnEmployee.addEventListener('click', () => {
-    btnEmployee.classList.add('active');
-    btnManager.classList.remove('active');
-    viewEmployee.style.display = 'block';
-    viewManager.style.display = 'none';
-    
-    setTimeout(() => {
-      viewEmployee.classList.add('visible');
-      viewManager.classList.remove('visible');
-    }, 10);
-  });
-
-  btnManager.addEventListener('click', () => {
-    btnManager.classList.add('active');
-    btnEmployee.classList.remove('active');
-    viewManager.style.display = 'block';
-    viewEmployee.style.display = 'none';
-    
-    setTimeout(() => {
-      viewManager.classList.add('visible');
-      viewEmployee.classList.remove('visible');
-    }, 10);
-  });
-
-  // Default State
-  btnEmployee.click();
-}
-
-// ── Smooth Scroll for CTA ──
+// ── Smooth Scroll (for in-page anchors only) ──
 function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  document.querySelectorAll('a[href^="#"]:not(.spa-nav)').forEach((anchor) => {
     anchor.addEventListener('click', (e) => {
       e.preventDefault();
       const targetId = anchor.getAttribute('href');
@@ -542,7 +520,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Scroll-triggered animations
   initScrollAnimations();
 
-  // Navigation
+  // SPA Navigation & Routing
   initNavigation();
 
   // Form logic
@@ -551,10 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Roadmap expandable cards
   initRoadmapCards();
 
-  // Role Selection Toggle
-  initRoleSelection();
-
-  // Smooth scrolling
+  // Smooth scrolling (in-page anchors)
   initSmoothScroll();
 
   // Manager Dashboard

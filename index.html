@@ -17,14 +17,14 @@
   <!-- Particle Background -->
   <canvas id="particle-canvas" aria-hidden="true"></canvas>
 
-  <!-- ── Navigation ── -->
+  <!-- ── Global Navigation ── -->
   <nav class="nav" id="nav">
     <div class="nav-container">
-      <a href="#hero" class="nav-logo">Verdikt<span>AI</span></a>
+      <a href="#" class="nav-logo" id="nav-logo">Verdikt<span>AI</span></a>
       <div class="nav-links" id="nav-links">
-        <a href="#how-it-works" data-nav>How It Works</a>
-        <a href="#submit" data-nav>Submit Request</a>
-        <a href="#roadmap" data-nav>Roadmap</a>
+        <a href="#home-view" class="spa-nav active-nav-link" data-nav data-view="home-view">Home</a>
+        <a href="#employee-view" class="spa-nav" data-nav data-view="employee-view">Submit Request</a>
+        <a href="#manager-view" class="spa-nav" data-nav data-view="manager-view">Manager Dashboard</a>
       </div>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
         <span></span>
@@ -34,97 +34,281 @@
     </div>
   </nav>
 
-  <!-- ── Hero Section ── -->
-  <section class="hero" id="hero">
-    <div class="container hero-content">
-      <div class="hero-badge fade-up">
-        AI-Powered Approval Automation
-      </div>
-      <h1 class="hero-title fade-up stagger-1">
-        <span class="text-gradient">Verdikt AI</span>
-      </h1>
-      <p class="hero-tagline fade-up stagger-2">
-        Approvals, Decided Instantly. Reasoned Autonomously.
-      </p>
-      <p class="hero-description fade-up stagger-3">
-        An autonomous approval and task-routing agent that evaluates employee
-        requests using AI, makes intelligent decisions with transparent reasoning,
-        and notifies managers automatically — all in seconds.
-      </p>
-      <a href="#submit" class="btn btn-primary hero-cta fade-up stagger-4">
-        <span>Try It Now</span>
-        <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12h14"/>
-          <path d="m12 5 7 7-7 7"/>
-        </svg>
-      </a>
-      <div class="scroll-indicator fade-up stagger-5">
-        <span>Scroll to explore</span>
-        <div class="scroll-arrow"></div>
-      </div>
-    </div>
-  </section>
+  <!-- ══════════════════════════════════════════
+       VIEW 1: HOME (Visible by Default)
+       ══════════════════════════════════════════ -->
+  <div id="home-view" class="spa-view">
 
-  <!-- ── How It Works ── -->
-  <section class="section" id="how-it-works">
-    <div class="container text-center">
-      <span class="section-label fade-up">The Process</span>
-      <h2 class="section-title fade-up stagger-1">How Verdikt AI Works</h2>
-      <p class="section-subtitle mx-auto fade-up stagger-2">
-        From submission to manager notification — fully autonomous in under 30 seconds.
-      </p>
-      <div class="steps-grid">
-        <div class="step-card fade-up stagger-1">
-          <div class="step-number">01</div>
-          <div class="step-icon">📝</div>
-          <h3 class="step-title">Submit Request</h3>
-          <p class="step-desc">Employee fills out a simple form with request type, description, and context.</p>
+    <!-- ── Hero Section ── -->
+    <section class="hero" id="hero">
+      <div class="container hero-content">
+        <div class="hero-badge fade-up">
+          AI-Powered Approval Automation
         </div>
-        <div class="step-card fade-up stagger-2">
-          <div class="step-number">02</div>
-          <div class="step-icon">🧠</div>
-          <h3 class="step-title">AI Evaluates</h3>
-          <p class="step-desc">Google Gemini analyzes the request, weighing context, policy, and patterns.</p>
-        </div>
-        <div class="step-card fade-up stagger-3">
-          <div class="step-number">03</div>
-          <div class="step-icon">⚡</div>
-          <h3 class="step-title">Decision Generated</h3>
-          <p class="step-desc">AI returns a clear verdict — Approve, Review, or Reject — with transparent reasoning.</p>
-        </div>
-        <div class="step-card fade-up stagger-4">
-          <div class="step-number">04</div>
-          <div class="step-icon">📧</div>
-          <h3 class="step-title">Manager Notified</h3>
-          <p class="step-desc">The relevant manager receives an email with the decision and full reasoning instantly.</p>
+        <h1 class="hero-title fade-up stagger-1">
+          <span class="text-gradient">Autonomous Request Resolution.</span>
+        </h1>
+        <p class="hero-tagline fade-up stagger-2">
+          Approvals, Decided Instantly. Reasoned Autonomously.
+        </p>
+        <p class="hero-description fade-up stagger-3">
+          Verdikt AI handles routine approvals instantly, keeping humans
+          in the loop only when it matters. Submit a request, and our AI agent
+          evaluates it with transparent reasoning, notifies managers, and logs
+          everything — all in seconds.
+        </p>
+        <a href="#employee-view" class="btn btn-primary hero-cta fade-up stagger-4 spa-nav" data-view="employee-view">
+          <span>Try It Now</span>
+          <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"/>
+            <path d="m12 5 7 7-7 7"/>
+          </svg>
+        </a>
+        <div class="scroll-indicator fade-up stagger-5">
+          <span>Scroll to explore</span>
+          <div class="scroll-arrow"></div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ── Request Form ── -->
-  <section class="section form-section" id="submit">
-    <div class="container text-center">
-      <span class="section-label fade-up">Try It Live</span>
-      <h2 class="section-title fade-up stagger-1">Submit a Request</h2>
-      <p class="section-subtitle mx-auto fade-up stagger-2">
-        Fill in the details below and let our AI agent make an autonomous decision in real time.
-      </p>
-
-      <!-- 1. Role Selection Container -->
-      <div class="role-selection fade-up stagger-3" id="role-selection">
-        <button id="btn-role-employee" class="role-btn active">
-          <span class="role-icon">👤</span>
-          <span class="role-text">I am an Employee</span>
-        </button>
-        <button id="btn-role-manager" class="role-btn">
-          <span class="role-icon">💼</span>
-          <span class="role-text">I am a Manager</span>
-        </button>
+    <!-- ── How It Works ── -->
+    <section class="section" id="how-it-works">
+      <div class="container text-center">
+        <span class="section-label fade-up">The Process</span>
+        <h2 class="section-title fade-up stagger-1">How Verdikt AI Works</h2>
+        <p class="section-subtitle mx-auto fade-up stagger-2">
+          From submission to manager notification — fully autonomous in under 30 seconds.
+        </p>
+        <div class="steps-grid">
+          <div class="step-card fade-up stagger-1">
+            <div class="step-number">01</div>
+            <div class="step-icon">📝</div>
+            <h3 class="step-title">Submit</h3>
+            <p class="step-desc">Employee logs a request through the form — leave, expense, complaint, or IT support.</p>
+          </div>
+          <div class="step-card fade-up stagger-2">
+            <div class="step-number">02</div>
+            <div class="step-icon">🧠</div>
+            <h3 class="step-title">Analyze</h3>
+            <p class="step-desc">Gemini AI reviews history, department rules, and Google Sheets memory to evaluate the request.</p>
+          </div>
+          <div class="step-card fade-up stagger-3">
+            <div class="step-number">03</div>
+            <div class="step-icon">⚡</div>
+            <h3 class="step-title">Execute</h3>
+            <p class="step-desc">Instant Calendar sync, email notifications, and transparent decision — Approve, Review, or Reject.</p>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <!-- 2. Employee View Container -->
-      <div id="employee-view" style="display: none; margin-top: 2rem;">
+    <!-- ── Features ── -->
+    <section class="section" id="features">
+      <div class="container text-center">
+        <span class="section-label fade-up">Capabilities</span>
+        <h2 class="section-title fade-up stagger-1">What Verdikt AI Can Do</h2>
+        <p class="section-subtitle mx-auto fade-up stagger-2">
+          A comprehensive autonomous agent — here's what's live and what's coming next.
+        </p>
+        <div class="features-grid">
+          <!-- Live Now -->
+          <div class="feature-column fade-up stagger-3">
+            <div class="feature-column-header">
+              <span class="feature-status-dot feature-status-dot--live"></span>
+              <h3 class="feature-column-title">Live Now</h3>
+            </div>
+            <ul class="feature-list">
+              <li class="feature-item">
+                <span class="feature-icon">🤖</span>
+                <div>
+                  <strong>AI-Powered Routing</strong>
+                  <p>Gemini evaluates every request and routes to Approve, Review, or Reject with transparent reasoning.</p>
+                </div>
+              </li>
+              <li class="feature-item">
+                <span class="feature-icon">📊</span>
+                <div>
+                  <strong>Google Sheets Memory</strong>
+                  <p>All decisions, timestamps, and reasoning are logged automatically for audit trails and pattern detection.</p>
+                </div>
+              </li>
+              <li class="feature-item">
+                <span class="feature-icon">📅</span>
+                <div>
+                  <strong>Calendar Sync</strong>
+                  <p>Approved leave requests auto-create calendar events. Managers see who's out instantly.</p>
+                </div>
+              </li>
+              <li class="feature-item">
+                <span class="feature-icon">📧</span>
+                <div>
+                  <strong>Smart Email Notifications</strong>
+                  <p>Department-specific managers are notified via Gmail with the AI's full decision and reasoning.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!-- Upcoming -->
+          <div class="feature-column fade-up stagger-4">
+            <div class="feature-column-header">
+              <span class="feature-status-dot feature-status-dot--upcoming"></span>
+              <h3 class="feature-column-title">Upcoming</h3>
+            </div>
+            <ul class="feature-list">
+              <li class="feature-item">
+                <span class="feature-icon">📈</span>
+                <div>
+                  <strong>Advanced Analytics</strong>
+                  <p>Visual dashboards with approval trends, rejection reasons, and team request patterns.</p>
+                </div>
+              </li>
+              <li class="feature-item">
+                <span class="feature-icon">💬</span>
+                <div>
+                  <strong>Slack Integration</strong>
+                  <p>Submit requests and receive decisions directly inside your team's Slack workspace.</p>
+                </div>
+              </li>
+              <li class="feature-item">
+                <span class="feature-icon">🌐</span>
+                <div>
+                  <strong>Multi-language Support</strong>
+                  <p>Submit requests in your native language — Gemini handles the rest.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Roadmap / Future Scope ── -->
+    <section class="section" id="roadmap">
+      <div class="container text-center">
+        <span class="section-label fade-up">Coming Soon</span>
+        <h2 class="section-title fade-up stagger-1">What's Next for Verdikt AI</h2>
+        <p class="section-subtitle mx-auto fade-up stagger-2">
+          We're just getting started. Here's what's on our roadmap to make autonomous workflows even smarter.
+        </p>
+
+        <div class="roadmap-grid">
+          <!-- Card 1: Manager Dashboard -->
+          <div class="roadmap-card fade-up stagger-1" data-roadmap-card>
+            <div class="roadmap-card-header">
+              <div class="roadmap-icon">📊</div>
+              <div class="roadmap-expand">▾</div>
+            </div>
+            <h3 class="roadmap-title">Manager Dashboard</h3>
+            <p class="roadmap-preview">A dedicated interface for managers to view all requests, decisions, and reasoning in one place.</p>
+            <div class="roadmap-details">
+              <div class="roadmap-details-inner">
+                <p class="roadmap-details-content">
+                  The dashboard will pull live data from Google Sheets, presenting it in a
+                  clean, searchable table with filters by employee, request type, and decision.
+                  Managers can spot-check AI reasoning and override decisions when needed,
+                  creating a human-in-the-loop safety layer.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Persistent Agent Memory -->
+          <div class="roadmap-card fade-up stagger-2" data-roadmap-card>
+            <div class="roadmap-card-header">
+              <div class="roadmap-icon">🧠</div>
+              <div class="roadmap-expand">▾</div>
+            </div>
+            <h3 class="roadmap-title">Persistent Agent Memory</h3>
+            <p class="roadmap-preview">The AI will remember past decisions and patterns per employee, improving consistency over time.</p>
+            <div class="roadmap-details">
+              <div class="roadmap-details-inner">
+                <p class="roadmap-details-content">
+                  By implementing window buffer memory in n8n, the agent will maintain
+                  context across requests — recognizing patterns like frequent leave requests,
+                  escalating repeat complaints, and ensuring consistent treatment of similar
+                  cases across the organization.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Multi-language Support -->
+          <div class="roadmap-card fade-up stagger-3" data-roadmap-card>
+            <div class="roadmap-card-header">
+              <div class="roadmap-icon">🌐</div>
+              <div class="roadmap-expand">▾</div>
+            </div>
+            <h3 class="roadmap-title">Multi-language Support</h3>
+            <p class="roadmap-preview">Extend request submission and AI evaluation to regional languages.</p>
+            <div class="roadmap-details">
+              <div class="roadmap-details-inner">
+                <p class="roadmap-details-content">
+                  Leveraging Gemini's multilingual capabilities, employees will be able to
+                  submit requests in their native language. The AI will understand, evaluate,
+                  and respond appropriately while logging standardized English entries for
+                  managerial review.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Custom Escalation Rules -->
+          <div class="roadmap-card fade-up stagger-4" data-roadmap-card>
+            <div class="roadmap-card-header">
+              <div class="roadmap-icon">⚙️</div>
+              <div class="roadmap-expand">▾</div>
+            </div>
+            <h3 class="roadmap-title">Custom Escalation Rules</h3>
+            <p class="roadmap-preview">Let organizations define their own approval thresholds and escalation logic.</p>
+            <div class="roadmap-details">
+              <div class="roadmap-details-inner">
+                <p class="roadmap-details-content">
+                  Admins will configure rules like "auto-approve leave under 3 days" or
+                  "always escalate expenses over ₹10,000." The AI agent will respect these
+                  organizational policies while still applying contextual reasoning to
+                  edge cases.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5: Analytics Dashboard -->
+          <div class="roadmap-card fade-up stagger-5" data-roadmap-card>
+            <div class="roadmap-card-header">
+              <div class="roadmap-icon">📈</div>
+              <div class="roadmap-expand">▾</div>
+            </div>
+            <h3 class="roadmap-title">Analytics Dashboard</h3>
+            <p class="roadmap-preview">Visual insights into approval trends, rejection reasons, and team request patterns.</p>
+            <div class="roadmap-details">
+              <div class="roadmap-details-inner">
+                <p class="roadmap-details-content">
+                  Interactive charts and trend lines will surface actionable insights —
+                  which departments file the most complaints, peak leave request seasons,
+                  common rejection reasons, and AI decision accuracy over time. Data-driven
+                  HR management at its finest.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /home-view -->
+
+  <!-- ══════════════════════════════════════════
+       VIEW 2: EMPLOYEE (Hidden by Default)
+       ══════════════════════════════════════════ -->
+  <div id="employee-view" class="spa-view" style="display: none;">
+    <section class="section form-section" id="submit">
+      <div class="container text-center">
+        <span class="section-label fade-up">Try It Live</span>
+        <h2 class="section-title fade-up stagger-1">Submit a Request</h2>
+        <p class="section-subtitle mx-auto fade-up stagger-2">
+          Fill in the details below and let our AI agent make an autonomous decision in real time.
+        </p>
+
         <div class="form-wrapper fade-up stagger-3">
           <div class="form-card">
             <form id="request-form" novalidate>
@@ -242,9 +426,15 @@
           </div>
         </div>
       </div>
+    </section>
+  </div><!-- /employee-view -->
 
-      <!-- 3. Manager View Container -->
-      <div id="manager-view" style="display: none; margin-top: 2rem;">
+  <!-- ══════════════════════════════════════════
+       VIEW 3: MANAGER DASHBOARD (Hidden by Default)
+       ══════════════════════════════════════════ -->
+  <div id="manager-view" class="spa-view" style="display: none;">
+    <section class="section form-section">
+      <div class="container">
 
         <!-- Dashboard Header -->
         <div class="dash-header fade-up stagger-3">
@@ -325,123 +515,10 @@
 
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div><!-- /manager-view -->
 
-  <!-- ── Roadmap / Future Scope ── -->
-  <section class="section" id="roadmap">
-    <div class="container text-center">
-      <span class="section-label fade-up">Coming Soon</span>
-      <h2 class="section-title fade-up stagger-1">What's Next for Verdikt AI</h2>
-      <p class="section-subtitle mx-auto fade-up stagger-2">
-        We're just getting started. Here's what's on our roadmap to make autonomous workflows even smarter.
-      </p>
-
-      <div class="roadmap-grid">
-        <!-- Card 1: Manager Dashboard -->
-        <div class="roadmap-card fade-up stagger-1" data-roadmap-card>
-          <div class="roadmap-card-header">
-            <div class="roadmap-icon">📊</div>
-            <div class="roadmap-expand">▾</div>
-          </div>
-          <h3 class="roadmap-title">Manager Dashboard</h3>
-          <p class="roadmap-preview">A dedicated interface for managers to view all requests, decisions, and reasoning in one place.</p>
-          <div class="roadmap-details">
-            <div class="roadmap-details-inner">
-              <p class="roadmap-details-content">
-                The dashboard will pull live data from Google Sheets, presenting it in a
-                clean, searchable table with filters by employee, request type, and decision.
-                Managers can spot-check AI reasoning and override decisions when needed,
-                creating a human-in-the-loop safety layer.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 2: Persistent Agent Memory -->
-        <div class="roadmap-card fade-up stagger-2" data-roadmap-card>
-          <div class="roadmap-card-header">
-            <div class="roadmap-icon">🧠</div>
-            <div class="roadmap-expand">▾</div>
-          </div>
-          <h3 class="roadmap-title">Persistent Agent Memory</h3>
-          <p class="roadmap-preview">The AI will remember past decisions and patterns per employee, improving consistency over time.</p>
-          <div class="roadmap-details">
-            <div class="roadmap-details-inner">
-              <p class="roadmap-details-content">
-                By implementing window buffer memory in n8n, the agent will maintain
-                context across requests — recognizing patterns like frequent leave requests,
-                escalating repeat complaints, and ensuring consistent treatment of similar
-                cases across the organization.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 3: Multi-language Support -->
-        <div class="roadmap-card fade-up stagger-3" data-roadmap-card>
-          <div class="roadmap-card-header">
-            <div class="roadmap-icon">🌐</div>
-            <div class="roadmap-expand">▾</div>
-          </div>
-          <h3 class="roadmap-title">Multi-language Support</h3>
-          <p class="roadmap-preview">Extend request submission and AI evaluation to regional languages.</p>
-          <div class="roadmap-details">
-            <div class="roadmap-details-inner">
-              <p class="roadmap-details-content">
-                Leveraging Gemini's multilingual capabilities, employees will be able to
-                submit requests in their native language. The AI will understand, evaluate,
-                and respond appropriately while logging standardized English entries for
-                managerial review.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 4: Custom Escalation Rules -->
-        <div class="roadmap-card fade-up stagger-4" data-roadmap-card>
-          <div class="roadmap-card-header">
-            <div class="roadmap-icon">⚙️</div>
-            <div class="roadmap-expand">▾</div>
-          </div>
-          <h3 class="roadmap-title">Custom Escalation Rules</h3>
-          <p class="roadmap-preview">Let organizations define their own approval thresholds and escalation logic.</p>
-          <div class="roadmap-details">
-            <div class="roadmap-details-inner">
-              <p class="roadmap-details-content">
-                Admins will configure rules like "auto-approve leave under 3 days" or
-                "always escalate expenses over ₹10,000." The AI agent will respect these
-                organizational policies while still applying contextual reasoning to
-                edge cases.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 5: Analytics Dashboard -->
-        <div class="roadmap-card fade-up stagger-5" data-roadmap-card>
-          <div class="roadmap-card-header">
-            <div class="roadmap-icon">📈</div>
-            <div class="roadmap-expand">▾</div>
-          </div>
-          <h3 class="roadmap-title">Analytics Dashboard</h3>
-          <p class="roadmap-preview">Visual insights into approval trends, rejection reasons, and team request patterns.</p>
-          <div class="roadmap-details">
-            <div class="roadmap-details-inner">
-              <p class="roadmap-details-content">
-                Interactive charts and trend lines will surface actionable insights —
-                which departments file the most complaints, peak leave request seasons,
-                common rejection reasons, and AI decision accuracy over time. Data-driven
-                HR management at its finest.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Footer ── -->
+  <!-- ── Global Footer ── -->
   <footer class="footer">
     <div class="container">
       <p class="footer-brand fade-up">Verdikt<span>AI</span></p>
